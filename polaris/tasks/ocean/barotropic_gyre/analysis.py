@@ -111,7 +111,8 @@ class Analysis(OceanIOStep):
         cbar.ax.set_title(r'$\psi$')
 
         eta0 = np.max(np.abs(field_mpas.values - field_exact.values))
-        bounds = np.linspace(-eta0, eta0, 11)
+        # bounds = np.linspace(-eta0, eta0, 11)
+        bounds = np.linspace(-0.7, 0.7, 8)
         norm = mcolors.BoundaryNorm(bounds, cmocean.cm.balance.N)
         s = mosaic.polypcolor(
             axes[2],
@@ -139,7 +140,7 @@ class Analysis(OceanIOStep):
             ax.set_xlim(xmin, xmax)
             ax.set_ylim(ymin, ymax)
             ax.set_aspect('equal')
-        fig.savefig('comparison.png', bbox_inches='tight', pad_inches=0.1)
+        fig.savefig('comparison.pdf', bbox_inches='tight', pad_inches=0.1)
 
     def compute_error(
         self,

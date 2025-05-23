@@ -81,6 +81,9 @@ class BarotropicGyre(Task):
         forward.set_shared_config(config, link=config_filename)
         self.add_step(forward, run_by_default=False)
 
+        # choose between:
+        # boundary_condition='free slip'
+        # boundary_condition='no slip'
         analysis = Analysis(
             component=component,
             indir=self.subdir,
