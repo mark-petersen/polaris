@@ -1,4 +1,4 @@
-(ocean-baroclinic-channel)=
+(ocean-soma)=
 
 # baroclinic channel
 
@@ -103,7 +103,7 @@ y_{min}(x) = ~ & y_{mid} - y_{crest}(x) - \frac{1}{2}\Delta y_{perturb}, \\
 y_{max}(x) = ~ & y_{mid} - y_{crest}(x) + \frac{1}{2}\Delta y_{perturb}.
 $$
 
-```{image} images/baroclinic_channel.png
+```{image} images/soma.png
 :align: center
 :width: 500 px
 ```
@@ -128,7 +128,7 @@ All 5 test cases share the same set of config options:
 
 ```cfg
 # config options for baroclinic channel testcases
-[baroclinic_channel]
+[soma]
 
 # Time integration scheme
 time_integrator = RK4
@@ -147,9 +147,6 @@ btr_dt_per_km = 1.5
 # Logical flag that determines if locations of features are defined by distance
 # or fractions. False means fractions.
 use_distances = False
-
-# Viscosity values to test for rpe test case
-viscosities = 1, 5, 10, 20, 200
 
 # Temperature of the surface in the northern half of the domain.
 surface_temperature = 13.1
@@ -191,7 +188,7 @@ All units are mks, with temperature in degrees Celsius and salinity in PSU.
 The `long_forward` test has the following additional options:
 
 ```cfg
-[baroclinic_channel_long]
+[soma_long]
 
 # Number of days to run the long_forward case
 run_duration = 30.0
@@ -207,7 +204,7 @@ output_interval_units = hours
 
 ### description
 
-`ocean/baroclinic_channel/10km/default` is the default version of the
+`ocean/soma/10km/default` is the default version of the
 baroclinic eddies test case.  It includes a `forward` step for a short
 (15 min) test run and validation of prognostic variables for regression
 testing, a `long_forward` step for a longer (30 day) integration, and a
@@ -215,29 +212,29 @@ testing, a `long_forward` step for a longer (30 day) integration, and a
 
 ### mesh
 
-See {ref}`ocean-baroclinic-channel`. Currently, only 10-km horizontal
+See {ref}`ocean-soma`. Currently, only 10-km horizontal
 resolution is supported.
 
 ### vertical grid
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### initial conditions
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### forcing
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### time step and run duration
 
-See {ref}`ocean-baroclinic-channel` for time step. The `forward` step run
+See {ref}`ocean-soma` for time step. The `forward` step run
 duration is 3 time steps. The `long_forward` step runs for 30 days.
 
 ### config options
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### cores
 
@@ -247,36 +244,36 @@ The number of processors is hard-coded to be 4 for this case.
 
 ### description
 
-`ocean/baroclinic_channel/10km/decomp` runs a short (15 min) integration
+`ocean/soma/10km/decomp` runs a short (15 min) integration
 of the model forward in time on 4 (`4proc` step) and then on 8 processors
 (`8proc` step) to make sure the resulting prognostic variables are
 bit-for-bit identical between the two runs.
 
 ### mesh
 
-See {ref}`ocean-baroclinic-channel`. Currently, only 10-km horizontal
+See {ref}`ocean-soma`. Currently, only 10-km horizontal
 resolution is supported.
 
 ### vertical grid
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### initial conditions
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### forcing
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### time step and run duration
 
-See {ref}`ocean-baroclinic-channel` for time step. The run duration is 3 time
+See {ref}`ocean-soma` for time step. The run duration is 3 time
 steps.
 
 ### config options
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### cores
 
@@ -287,36 +284,36 @@ step.
 
 ### description
 
-`ocean/baroclinic_channel/10km/threads` runs a short (15 min) integration
+`ocean/soma/10km/threads` runs a short (15 min) integration
 of the model forward in time on 1 threads per processor (`1thread` step) and
 then on 2 threads (`2thread` step) to make sure the resulting prognostic
 variables are bit-for-bit identical between the two runs.
 
 ### mesh
 
-See {ref}`ocean-baroclinic-channel`. Currently, only 10-km horizontal
+See {ref}`ocean-soma`. Currently, only 10-km horizontal
 resolution is supported.
 
 ### vertical grid
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### initial conditions
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### forcing
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### time step and run duration
 
-See {ref}`ocean-baroclinic-channel` for time step. The run duration is 3 time
+See {ref}`ocean-soma` for time step. The run duration is 3 time
 steps.
 
 ### config options
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### cores
 
@@ -327,7 +324,7 @@ per processor and the `2thread` step is run on 2 threads per processor.
 
 ### description
 
-`ocean/baroclinic_channel/10km/restart` runs a short (10 min)
+`ocean/soma/10km/restart` runs a short (10 min)
 integration of the model forward in time (`full_run` step), saving a restart
 file every 5 minutes.  Then, a second run (`restart_run` step) is performed
 from the restart file 5 minutes into the simulation and prognostic variables
@@ -336,29 +333,29 @@ they are bit-for-bit identical.
 
 ### mesh
 
-See {ref}`ocean-baroclinic-channel`. Currently, only 10-km horizontal
+See {ref}`ocean-soma`. Currently, only 10-km horizontal
 resolution is supported.
 
 ### vertical grid
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### initial conditions
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### forcing
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### time step and run duration
 
-See {ref}`ocean-baroclinic-channel` for time step. The full run is two time
+See {ref}`ocean-soma` for time step. The full run is two time
 steps and the restart run is one time step long.
 
 ### config options
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### cores
 
@@ -366,9 +363,9 @@ The number of processors is hard-coded to be 4 for this case.
 
 ## rpe
 
-`ocean/baroclinic_channel/1km/rpe`,
-`ocean/baroclinic_channel/4km/rpe`, and
-`ocean/baroclinic_channel/10km/rpe` perform longer (20 day) integration
+`ocean/soma/1km/rpe`,
+`ocean/soma/4km/rpe`, and
+`ocean/soma/10km/rpe` perform longer (20 day) integration
 of the model forward in time at 5 different values of the viscosity (with steps
 named `rpe_1_nu_1`, `rpe_2_nu_5`, etc.) at any of the 3 supported
 horizontal resolutions (1, 4 and 10 km).  Results of these tests have been used
@@ -378,27 +375,27 @@ energy (RPE) than POP, MOM and MITgcm models
 
 ### mesh
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### vertical grid
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### initial conditions
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### forcing
 
-See {ref}`ocean-baroclinic-channel`.
+See {ref}`ocean-soma`.
 
 ### time step and run duration
 
-See {ref}`ocean-baroclinic-channel` for time step. Each run lasts 20 days.
+See {ref}`ocean-soma` for time step. Each run lasts 20 days.
 
 ### config options
 
-See {ref}`ocean-baroclinic-channel`. The config option that is specific to
+See {ref}`ocean-soma`. The config option that is specific to
 this case is:
 
 ```

@@ -7,8 +7,8 @@ from polaris.ocean.model import OceanModelStep, get_time_interval_string
 
 class Forward(OceanModelStep):
     """
-    A step for performing forward ocean component runs as part of baroclinic
-    channel tasks.
+    A step for performing forward ocean component runs as part of SOMA
+    tasks.
 
     Attributes
     ----------
@@ -79,7 +79,7 @@ class Forward(OceanModelStep):
             the number of OpenMP threads the step will use
 
         nu : float, optional
-            the viscosity (if different from the default for baroclinic channel
+            the viscosity (if different from the default for SOMA
             tests)
 
         run_time_steps : int, optional
@@ -93,10 +93,6 @@ class Forward(OceanModelStep):
             If none, it will be created.
         """
         self.nu = nu
-        if self.nu is not None:
-            self.is_rpe_step = True
-        else:
-            self.is_rpe_step = False
         self.resolution = resolution
         self.run_time_steps = run_time_steps
         self.start_time_steps = start_time_steps
@@ -161,7 +157,7 @@ class Forward(OceanModelStep):
         cell_count : int or None
             The approximate number of cells in the mesh
         """
-        section = self.config['baroclinic_channel']
+        section = self.config['soma']
         lx = section.getfloat('lx')
         ly = section.getfloat('ly')
         nx, ny = compute_planar_hex_nx_ny(lx, ly, self.resolution)
@@ -185,7 +181,7 @@ class Forward(OceanModelStep):
         config = self.config
         model = config.get('ocean', 'model')
 
-        time_integrator = config.get('baroclinic_channel', 'time_integrator')
+        time_integrator = config.get('soma', 'time_integrator')
         time_integrator_map = dict([('RK4', 'RungeKutta4')])
         if model == 'omega':
             if time_integrator in time_integrator_map.keys():
@@ -198,12 +194,12 @@ class Forward(OceanModelStep):
                 )
 
         # dt is proportional to resolution: default 30 seconds per km
-        dt_per_km = config.getfloat('baroclinic_channel', 'dt_per_km')
+        dt_per_km = config.getfloat('soma', 'dt_per_km')
         dt = dt_per_km * self.resolution
         dt_str = get_time_interval_string(seconds=dt)
 
         # btr_dt is only for MPAS-Ocean (Omega uses RK4)
-        btr_dt_per_km = config.getfloat('baroclinic_channel', 'btr_dt_per_km')
+        btr_dt_per_km = config.getfloat('soma', 'btr_dt_per_km')
         btr_dt = btr_dt_per_km * self.resolution
         mpaso_options = {
             'config_do_restart': False,
@@ -224,24 +220,13 @@ class Forward(OceanModelStep):
             ocean_options['config_start_time'] = start_str
 
         if self.name == 'long_forward':
-            run_duration = config.getfloat(
-                'baroclinic_channel_long', 'run_duration'
-            )
+            run_duration = config.getfloat('soma_long', 'run_duration')
             run_duration_str = get_time_interval_string(days=run_duration)
-            output_freq = config.getfloat(
-                'baroclinic_channel_long', 'output_interval'
-            )
+            output_freq = config.getfloat('soma_long', 'output_interval')
             output_freq_units = config.get(
-                'baroclinic_channel_long', 'output_interval_units'
+                'soma_long', 'output_interval_units'
             )
             output_freq = int(output_freq)
-        elif self.is_rpe_step:
-            run_duration = config.getfloat(
-                'baroclinic_channel_rpe', 'run_duration'
-            )
-            run_duration_str = get_time_interval_string(days=run_duration)
-            output_freq = 1
-            output_freq_units = 'days'
         elif self.run_time_steps is not None:
             run_seconds = self.run_time_steps * dt
             run_duration_str = get_time_interval_string(seconds=run_seconds)
@@ -305,7 +290,7 @@ class Forward(OceanModelStep):
             ocean_options['config_mom_del2'] = self.nu
         else:
             ocean_options['config_mom_del2'] = config.getfloat(
-                'baroclinic_channel', 'default_nu'
+                'soma', 'default_nu'
             )
 
         self.add_model_config_options(
@@ -329,7 +314,7 @@ class Forward(OceanModelStep):
             restart_freq_units='seconds',
         )
         self.add_yaml_file(
-            'polaris.tasks.ocean.baroclinic_channel',
+            'polaris.tasks.ocean.soma',
             'forward.yaml',
             template_replacements=replacements,
         )

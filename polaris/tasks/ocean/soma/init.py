@@ -15,7 +15,7 @@ from polaris.viz import plot_horiz_field
 
 class Init(OceanIOStep):
     """
-    A step for creating a mesh and initial condition for baroclinic channel
+    A step for creating a mesh and initial condition for SOMA
     tasks
 
     Attributes
@@ -57,7 +57,7 @@ class Init(OceanIOStep):
         config = self.config
         logger = self.logger
 
-        section = config['baroclinic_channel']
+        section = config['soma']
         resolution = self.resolution
 
         lx = section.getfloat('lx')

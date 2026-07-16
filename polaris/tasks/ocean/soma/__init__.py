@@ -2,33 +2,30 @@ import os
 
 from polaris.config import PolarisConfigParser as PolarisConfigParser
 from polaris.resolution import resolution_to_string
-from polaris.tasks.ocean.baroclinic_channel.decomp import Decomp as Decomp
-from polaris.tasks.ocean.baroclinic_channel.default import Default as Default
-from polaris.tasks.ocean.baroclinic_channel.init import Init as Init
-from polaris.tasks.ocean.baroclinic_channel.restart import Restart as Restart
-from polaris.tasks.ocean.baroclinic_channel.rpe import Rpe as Rpe
-from polaris.tasks.ocean.baroclinic_channel.threads import Threads as Threads
+from polaris.tasks.ocean.soma.decomp import Decomp as Decomp
+from polaris.tasks.ocean.soma.default import Default as Default
+from polaris.tasks.ocean.soma.init import Init as Init
+from polaris.tasks.ocean.soma.restart import Restart as Restart
+from polaris.tasks.ocean.soma.threads import Threads as Threads
 
 
-def add_baroclinic_channel_tasks(component):
+def add_soma_tasks(component):
     """
-    Add tasks for different baroclinic channel tests to the ocean component
+    Add tasks for different SOMA tests to the ocean component
 
     component : polaris.tasks.ocean.Ocean
         the ocean component that the tasks will be added to
     """
     for resolution in [10.0, 4.0, 1.0]:
         resdir = resolution_to_string(resolution)
-        resdir = f'planar/baroclinic_channel/{resdir}'
+        resdir = f'planar/soma/{resdir}'
 
-        config_filename = 'baroclinic_channel.cfg'
+        config_filename = 'soma.cfg'
         config = PolarisConfigParser(
             filepath=os.path.join(component.name, resdir, config_filename)
         )
         config.add_from_package('polaris.ocean.eos', 'linear.cfg')
-        config.add_from_package(
-            'polaris.tasks.ocean.baroclinic_channel', 'baroclinic_channel.cfg'
-        )
+        config.add_from_package('polaris.tasks.ocean.soma', 'soma.cfg')
 
         init = Init(component=component, resolution=resolution, indir=resdir)
         init.set_shared_config(config, link=config_filename)
@@ -66,13 +63,3 @@ def add_baroclinic_channel_tasks(component):
             )
             threads.set_shared_config(config, link=config_filename)
             component.add_task(threads)
-
-        component.add_task(
-            Rpe(
-                component=component,
-                resolution=resolution,
-                indir=resdir,
-                init=init,
-                config=config,
-            )
-        )

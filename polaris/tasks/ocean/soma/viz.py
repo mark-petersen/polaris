@@ -10,7 +10,7 @@ from polaris.viz import plot_horiz_field
 
 class Viz(OceanIOStep):
     """
-    A step for plotting the results of a series of baroclinic channel RPE runs
+    A step for plotting the results of a series of SOMA runs
 
     Attributes
     ----------

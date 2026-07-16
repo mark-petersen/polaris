@@ -1,13 +1,13 @@
 from polaris import Task as Task
-from polaris.tasks.ocean.baroclinic_channel.forward import Forward as Forward
-from polaris.tasks.ocean.baroclinic_channel.validate import (
+from polaris.tasks.ocean.soma.forward import Forward as Forward
+from polaris.tasks.ocean.soma.validate import (
     Validate as Validate,
 )
 
 
 class Decomp(Task):
     """
-    A baroclinic channel decomposition task, which makes sure the model
+    A SOMA decomposition task, which makes sure the model
     produces identical results on 1 and 4 cores.
     """
 
@@ -26,7 +26,7 @@ class Decomp(Task):
         indir : str
             The directory the task is in, to which ``name`` will be appended
 
-        init : polaris.tasks.ocean.baroclinic_channel.init.Init
+        init : polaris.tasks.ocean.soma.init.Init
             A shared step for creating the initial state
         """
 

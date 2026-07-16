@@ -4,7 +4,7 @@ from polaris.validate import compare_variables
 
 class Validate(Step):
     """
-    A step for comparing outputs between steps in a baroclinic channel run
+    A step for comparing outputs between steps in a SOMA run
 
     Attributes
     ----------
