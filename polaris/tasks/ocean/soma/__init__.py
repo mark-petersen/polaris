@@ -16,9 +16,9 @@ def add_soma_tasks(component):
     component : polaris.tasks.ocean.Ocean
         the ocean component that the tasks will be added to
     """
-    for resolution in [10.0, 4.0, 1.0]:
+    for resolution in [32.0, 16.0, 8.0, 4.0]:
         resdir = resolution_to_string(resolution)
-        resdir = f'planar/soma/{resdir}'
+        resdir = f'spherical/soma/{resdir}'
 
         config_filename = 'soma.cfg'
         config = PolarisConfigParser(
@@ -36,30 +36,32 @@ def add_soma_tasks(component):
         default.set_shared_config(config, link=config_filename)
         component.add_task(default)
 
-        if resolution == 10.0:
-            decomp = Decomp(
-                component=component,
-                resolution=resolution,
-                indir=resdir,
-                init=init,
-            )
-            decomp.set_shared_config(config, link=config_filename)
-            component.add_task(decomp)
 
-            restart = Restart(
-                component=component,
-                resolution=resolution,
-                indir=resdir,
-                init=init,
-            )
-            restart.set_shared_config(config, link=config_filename)
-            component.add_task(restart)
-
-            threads = Threads(
-                component=component,
-                resolution=resolution,
-                indir=resdir,
-                init=init,
-            )
-            threads.set_shared_config(config, link=config_filename)
-            component.add_task(threads)
+# delete soon mrp
+#        if resolution == 32.0:
+#            decomp = Decomp(
+#                component=component,
+#                resolution=resolution,
+#                indir=resdir,
+#                init=init,
+#            )
+#            decomp.set_shared_config(config, link=config_filename)
+#            component.add_task(decomp)
+#
+#            restart = Restart(
+#                component=component,
+#                resolution=resolution,
+#                indir=resdir,
+#                init=init,
+#            )
+#            restart.set_shared_config(config, link=config_filename)
+#            component.add_task(restart)
+#
+#            threads = Threads(
+#                component=component,
+#                resolution=resolution,
+#                indir=resdir,
+#                init=init,
+#            )
+#            threads.set_shared_config(config, link=config_filename)
+#            component.add_task(threads)

@@ -22,6 +22,7 @@ from polaris.tasks.ocean.overflow import add_overflow_tasks
 from polaris.tasks.ocean.realistic_global import add_realistic_global_tasks
 from polaris.tasks.ocean.seamount import add_seamount_tasks
 from polaris.tasks.ocean.single_column import add_single_column_tasks
+from polaris.tasks.ocean.soma import add_soma_tasks
 from polaris.tasks.ocean.sphere_transport import add_sphere_transport_tasks
 
 
@@ -59,3 +60,4 @@ def add_ocean_tasks(component):
     add_isomip_plus_tasks(component=component, mesh_type='spherical')
     add_realistic_global_tasks(component=component)
     add_sphere_transport_tasks(component=component)
+    add_soma_tasks(component=component)
