@@ -2,11 +2,8 @@ import os
 
 from polaris.config import PolarisConfigParser as PolarisConfigParser
 from polaris.resolution import resolution_to_string
-from polaris.tasks.ocean.soma.decomp import Decomp as Decomp
 from polaris.tasks.ocean.soma.default import Default as Default
 from polaris.tasks.ocean.soma.init import Init as Init
-from polaris.tasks.ocean.soma.restart import Restart as Restart
-from polaris.tasks.ocean.soma.threads import Threads as Threads
 
 
 def add_soma_tasks(component):
