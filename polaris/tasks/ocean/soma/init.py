@@ -54,6 +54,21 @@ class Init(OceanIOStep):
         """
         Run this step of the task
         """
+        # mrp tried to download from web but it did not work:
+        # self.add_input_file(
+        #  filename='init.nc',
+        #  url='https://web.lcrc.anl.gov/public/e3sm/mpas_standalonedata/mpas-ocean/mesh_database/SOMA_32km_grid.161202.nc')
+
+        # mrp: in the future, change this to a file available in
+        # https://web.lcrc.anl.gov/public/e3sm/polaris/ocean/omega_ctest/
+        # on perlmutter: /global/cfs/cdirs/e3sm/polaris/ocean/
+        # step.add_input_file(
+        #  filename='init.nc',
+        #  target='SOMA_32km_grid.161202.nc',
+        #  database='soma'
+        #  )
+
+        # originally in baroclinic channel. Deleted:
         config = self.config
         logger = self.logger
 
